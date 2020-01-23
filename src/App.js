@@ -2,12 +2,14 @@ import React from "react";
 import "./App.css";
 
 function App() {
-  const message = "Hello, React!";
+  const libralies = ["jQuery", "React", "Vue.js"];
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>{message}</p>
+        {libralies.map(item => (
+          <p>{item}</p>
+        ))}
       </header>
     </div>
   );
