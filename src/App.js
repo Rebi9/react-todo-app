@@ -1,15 +1,12 @@
 import React from "react";
 import "./App.css";
+import Message from "./components/Message";
 
 function App() {
-  const libralies = ["jQuery", "React", "Vue.js"];
-
   return (
     <div className="App">
       <header className="App-header">
-        {libralies.map(item => (
-          <p>{item}</p>
-        ))}
+        <Message />
       </header>
     </div>
   );
