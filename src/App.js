@@ -6,7 +6,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Message />
+        <Message name="habu" />
+        <Message name="moriuchi" />
+        <Message name="sato" />
       </header>
     </div>
   );
