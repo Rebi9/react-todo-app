@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import "./App.css";
-import Message from "./components/Message";
-import NameForm from "./components/NameForm";
+import Todo from "./components/Todo";
 
 function App() {
-  const [name, setName] = useState("");
+  const [todos, setTodos] = useState([
+    {
+      ID: 1,
+      Content: "hoge",
+      Done: true,
+      CreatedAt: new Date().toISOString(),
+      UpdatedAt: new Date().toISOString()
+    }
+  ]);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <NameForm name={name} onChangeName={value => setName(value)} />
-
-        <Message name={name} />
-      </header>
+      {todos.map(item => (
+        <Todo key={item.ID} {...item} />
+      ))}
     </div>
   );
 }
