@@ -5,7 +5,7 @@ function Todo(props) {
   return (
     <div className="todo">
       <div className="check">{props.Done && <span>✓</span>}</div>
-      <div className="doby">
+      <div className="body">
         <div className="header">
           <span className="date">CreatedAt: {props.CreatedAt}</span>
           <span className="date">UpdatedAt: {props.UpdatedAt}</span>
