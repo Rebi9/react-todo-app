@@ -13,7 +13,9 @@ function Todo(props) {
         <div className="content">{props.Content}</div>
       </div>
       <button className="btn">Edit</button>
-      <button className="btn">Delete</button>
+      <button className="btn" onClick={() => props.onDelete(props.ID)}>
+        Delete
+      </button>
     </div>
   );
 }

@@ -23,12 +23,21 @@ function App() {
     setTodos([...todos, data]);
   };
 
+  const handleDelete = id => {
+    const index = todos.findIndex(item => item.ID === id);
+    if (index >= 0) {
+      const newList = [...todos];
+      newList.splice(index, 1);
+      setTodos(newList);
+    }
+  };
+
   return (
     <div className="App">
       <TodoForm onSave={handleCreate} />
 
       {todos.map(item => (
-        <Todo key={item.ID} {...item} />
+        <Todo key={item.ID} {...item} onDelete={handleDelete} />
       ))}
     </div>
   );
