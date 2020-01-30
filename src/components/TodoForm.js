@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Todo.css";
 
-function ToDoForm(props = { Done: false, Content: "", onSave: () => {} }) {
+function ToDoForm(props = { Done: false, Content: "" }) {
   const [done, setDone] = useState(!!props.Done);
-  const [content, setContent] = useState(props.Content);
+  const [content, setContent] = useState(props.Content || "");
 
   const handleSave = () => {
     const data = {
@@ -32,6 +32,11 @@ function ToDoForm(props = { Done: false, Content: "", onSave: () => {} }) {
       <button className="btn" onClick={handleSave}>
         Save
       </button>
+      {props.ID && (
+        <button className="btn" onClick={props.onCancel}>
+          Cancel
+        </button>
+      )}
     </div>
   );
 }

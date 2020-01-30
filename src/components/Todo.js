@@ -6,7 +6,9 @@ function Todo(props) {
   const [edit, setEdit] = useState(false);
 
   if (edit) {
-    return <TodoForm {...props} onSave={() => {}} />;
+    return (
+      <TodoForm {...props} onSave={() => {}} onCancel={() => setEdit(false)} />
+    );
   }
 
   return (
