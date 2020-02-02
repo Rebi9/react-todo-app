@@ -7,6 +7,7 @@ function ToDoForm(props = { Done: false, Content: "" }) {
 
   const handleSave = () => {
     const data = {
+      ...props,
       Done: done,
       Content: content
     };

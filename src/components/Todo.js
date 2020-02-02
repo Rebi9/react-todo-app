@@ -5,9 +5,18 @@ import "./Todo.css";
 function Todo(props) {
   const [edit, setEdit] = useState(false);
 
+  const handleUpdate = data => {
+    props.onSave(data);
+    setEdit(false);
+  };
+
   if (edit) {
     return (
-      <TodoForm {...props} onSave={() => {}} onCancel={() => setEdit(false)} />
+      <TodoForm
+        {...props}
+        onSave={handleUpdate}
+        onCancel={() => setEdit(false)}
+      />
     );
   }
 

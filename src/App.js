@@ -32,12 +32,31 @@ function App() {
     }
   };
 
+  const handleUpdate = data => {
+    const now = new Date().toISOString();
+    data.UpdatedAt = now;
+
+    setTodos(
+      todos.map(item => {
+        if (item.ID === data.ID) {
+          return data;
+        }
+        return item;
+      })
+    );
+  };
+
   return (
     <div className="App">
       <TodoForm onSave={handleCreate} />
 
       {todos.map(item => (
-        <Todo key={item.ID} {...item} onDelete={handleDelete} />
+        <Todo
+          key={item.ID}
+          {...item}
+          onSave={handleUpdate}
+          onDelete={handleDelete}
+        />
       ))}
     </div>
   );
