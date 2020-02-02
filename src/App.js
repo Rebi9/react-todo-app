@@ -16,7 +16,7 @@ function App() {
   ]);
 
   const handleCreate = data => {
-    data.ID = uuid.v4;
+    data.ID = uuid.v4();
     const now = new Date().toISOString();
     data.CreatedAt = now;
     data.UpdatedAt = now;
