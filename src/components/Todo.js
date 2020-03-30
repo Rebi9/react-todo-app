@@ -22,18 +22,18 @@ function Todo(props) {
 
   return (
     <div className="todo">
-      <div className="check">{props.Done && <span>✓</span>}</div>
+      <div className="check">{props.is_done && <span>✓</span>}</div>
       <div className="body">
         <div className="header">
-          <span className="date">CreatedAt: {props.CreatedAt}</span>
-          <span className="date">UpdatedAt: {props.UpdatedAt}</span>
+          <span className="date">CreatedAt: {props.created_at}</span>
+          <span className="date">UpdatedAt: {props.updated_at}</span>
         </div>
-        <div className="content">{props.Content}</div>
+        <div className="content">{props.content}</div>
       </div>
       <button className="btn" onClick={() => setEdit(true)}>
         Edit
       </button>
-      <button className="btn" onClick={() => props.onDelete(props.ID)}>
+      <button className="btn" onClick={() => props.onDelete(props.id)}>
         Delete
       </button>
     </div>

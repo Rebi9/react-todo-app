@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./Todo.css";
 
-function ToDoForm(props = { Done: false, Content: "" }) {
-  const [done, setDone] = useState(!!props.Done);
-  const [content, setContent] = useState(props.Content || "");
+function ToDoForm(props = { is_done: false, content: "" }) {
+  const [done, setDone] = useState(!!props.is_done);
+  const [content, setContent] = useState(props.content || "");
 
   const handleSave = () => {
     const data = {
       ...props,
-      Done: done,
-      Content: content
+      is_done: done,
+      content: content
     };
 
     props.onSave(data);

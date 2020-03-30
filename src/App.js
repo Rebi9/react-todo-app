@@ -1,49 +1,74 @@
-import React, { useState } from "react";
-import uuid from "uuid";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Todo from "./components/Todo";
 import TodoForm from "./components/TodoForm";
 
+const url = "/todo";
+
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      ID: 1,
-      Content: "hoge",
-      Done: true,
-      CreatedAt: new Date().toISOString(),
-      UpdatedAt: new Date().toISOString()
-    }
-  ]);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const getTodoes = async () => {
+      const response = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
+      });
+
+      const res = await response.json();
+
+      setTodos(res);
+    };
+
+    getTodoes();
+  }, []);
 
   const handleCreate = data => {
-    data.ID = uuid.v4();
-    const now = new Date().toISOString();
-    data.CreatedAt = now;
-    data.UpdatedAt = now;
-    setTodos([...todos, data]);
-  };
+    const createTodo = async () => {
+      const response = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(data)
+      });
 
-  const handleDelete = id => {
-    const index = todos.findIndex(item => item.ID === id);
-    if (index >= 0) {
-      const newList = [...todos];
-      newList.splice(index, 1);
-      setTodos(newList);
-    }
+      console.log(response.status);
+    };
+
+    createTodo();
   };
 
   const handleUpdate = data => {
-    const now = new Date().toISOString();
-    data.UpdatedAt = now;
+    const updateTodo = async () => {
+      const response = await fetch(`${url}/${data.id}`, {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(data)
+      });
 
-    setTodos(
-      todos.map(item => {
-        if (item.ID === data.ID) {
-          return data;
-        }
-        return item;
-      })
-    );
+      console.log(response.status);
+    };
+
+    updateTodo();
+  };
+
+  const handleDelete = id => {
+    const deleteTodo = async () => {
+      const response = await fetch(`${url}/${id}`, {
+        method: "DELETE",
+        mode: "cors"
+      });
+
+      console.log(response.status);
+    };
+
+    deleteTodo();
   };
 
   return (
@@ -52,7 +77,7 @@ function App() {
 
       {todos.map(item => (
         <Todo
-          key={item.ID}
+          key={item.id}
           {...item}
           onSave={handleUpdate}
           onDelete={handleDelete}
