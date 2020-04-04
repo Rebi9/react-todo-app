@@ -1,13 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import "./App.css";
 import Todo from "./components/Todo";
 import TodoForm from "./components/TodoForm";
 
 const url = "/todo";
 
+const Themes = {
+  light: {
+    color: "#000",
+    backgroundColor: "#fff"
+  },
+  dark: {
+    color: "#fff",
+    backgroundColor: "#000"
+  }
+};
+
+export const ThemeContext = createContext(Themes.light);
+
 function App() {
   const [todos, setTodos] = useState([]);
   const [refresh, setRefresh] = useState(0);
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     const getTodoes = async () => {
@@ -78,18 +92,47 @@ function App() {
     deleteTodo();
   };
 
+  const handleTheme = e => {
+    setTheme(e.target.value);
+  };
+
   return (
     <div className="App">
-      <TodoForm onSave={handleCreate} />
+      <ThemeContext.Provider value={Themes[theme]}>
+        <div className="theme-selector">
+          <label>
+            <input
+              type="radio"
+              name="theme"
+              value="light"
+              defaultChecked={theme === "light"}
+              onChange={handleTheme}
+            />
+            Light
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="theme"
+              value="dark"
+              defaultChecked={theme === "dark"}
+              onChange={handleTheme}
+            />
+            Dark
+          </label>
+        </div>
 
-      {todos.map(item => (
-        <Todo
-          key={item.id}
-          {...item}
-          onSave={handleUpdate}
-          onDelete={handleDelete}
-        />
-      ))}
+        <TodoForm onSave={handleCreate} />
+
+        {todos.map(item => (
+          <Todo
+            key={item.id}
+            {...item}
+            onSave={handleUpdate}
+            onDelete={handleDelete}
+          />
+        ))}
+      </ThemeContext.Provider>
     </div>
   );
 }

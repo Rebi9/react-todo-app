@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Todo.css";
+
+import { ThemeContext } from "../App";
 
 function ToDoForm(props = { is_done: false, content: "" }) {
   const [done, setDone] = useState(!!props.is_done);
   const [content, setContent] = useState(props.content || "");
+  const theme = useContext(ThemeContext);
 
   const handleSave = () => {
     const data = {
@@ -19,7 +22,7 @@ function ToDoForm(props = { is_done: false, content: "" }) {
   };
 
   return (
-    <div className="todo">
+    <div className="todo" style={theme}>
       <div className="check">
         <input
           type="checkbox"
