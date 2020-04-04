@@ -7,6 +7,7 @@ const url = "/todo";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     const getTodoes = async () => {
@@ -18,11 +19,11 @@ function App() {
 
       const res = await response.json();
 
-      setTodos(res);
+      setTodos(res.sort((a, b) => (a.created_at < b.created_at ? 1 : -1)));
     };
 
     getTodoes();
-  }, []);
+  }, [refresh]);
 
   const handleCreate = data => {
     const createTodo = async () => {
@@ -36,6 +37,8 @@ function App() {
       });
 
       console.log(response.status);
+
+      setRefresh(Date.now());
     };
 
     createTodo();
@@ -53,6 +56,8 @@ function App() {
       });
 
       console.log(response.status);
+
+      setRefresh(Date.now());
     };
 
     updateTodo();
@@ -66,6 +71,8 @@ function App() {
       });
 
       console.log(response.status);
+
+      setRefresh(Date.now());
     };
 
     deleteTodo();
